@@ -36,7 +36,7 @@ enemyImg = []
 enemyPos = []
 num_enemy = 1
 horizontal_motion = [random.randint(1,5) for i in range(num_enemy)]
-vertical_motion = [1 for i in range(num_enemy)]
+vertical_motion = [.25 for i in range(num_enemy)]
 
 for i in range(num_enemy):
     enemyimg = pygame.image.load('monster1.png')
@@ -54,9 +54,9 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global horizontal_motion
     global num_enemy
     num_enemy += 1
-    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 100)], random.randint(1,5), .75+random.random()*score/500],
-                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(5,15)+ score/100, 1],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,15)+ score/100, 2+random.random()*score/200] }
+    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 100)], random.randint(1,5), 1+random.random()*score/250],
+                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,20)+ score/100, 1],
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,15)+ score/100, 2+score/200] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]))
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
@@ -162,7 +162,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,150))
         render = smallFont.render("Next upgrade at score 500", True, (0,0,0))
         screen.blit(render, (10,170))
-        milkSpeed = 20 
+        milkSpeed = 15 
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg,(70,70))
         

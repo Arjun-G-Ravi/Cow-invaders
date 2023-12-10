@@ -34,7 +34,7 @@ def player(x,y):
 # Enemy
 enemyImg = []
 enemyPos = []
-num_enemy = 1
+num_enemy = 3
 horizontal_motion = [random.randint(1,5) for i in range(num_enemy)]
 vertical_motion = [.25 for i in range(num_enemy)]
 
@@ -92,7 +92,7 @@ upgrade = 0
 def enable_upgrades(upgrade):
     global milkImg
     if upgrade == 0:
-        render = smallFont.render("First upgrade at score 5", True, (0,0,0))
+        render = smallFont.render("First upgrade at score 10", True, (0,0,0))
         screen.blit(render, (10,50))
         
     if upgrade == 1:
@@ -103,7 +103,7 @@ def enable_upgrades(upgrade):
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
-        render = smallFont.render("Next upgrade at score 50", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 30", True, (0,0,0))
         screen.blit(render, (10,90))
         
     if upgrade == 2:
@@ -114,7 +114,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("Next upgrade at score 100", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 75", True, (0,0,0))
         screen.blit(render, (10,110))
     if upgrade == 3:
         # Faster bullet
@@ -133,7 +133,7 @@ def enable_upgrades(upgrade):
         milkImg = pygame.image.load('milk2.png')
 
     if upgrade == 4:
-        # Thriple bullet
+        # Fast bullet
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
@@ -192,11 +192,11 @@ def enable_upgrades(upgrade):
 def add_upgrades_by_score(score):
     global upgrade
     
-    if score == 5:
+    if score == 10:
         upgrade = 1
-    elif score == 50:
+    elif score == 30:
         upgrade = 2
-    elif score == 100:
+    elif score == 75:
         upgrade = 3
     elif score == 150:
         upgrade = 4

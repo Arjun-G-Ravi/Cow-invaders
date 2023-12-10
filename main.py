@@ -92,7 +92,7 @@ upgrade = 0
 def enable_upgrades(upgrade):
     global milkImg
     if upgrade == 0:
-        render = smallFont.render("First upgrade at score 25", True, (0,0,0))
+        render = smallFont.render("First upgrade at score 5", True, (0,0,0))
         screen.blit(render, (10,50))
         
     if upgrade == 1:
@@ -192,7 +192,7 @@ def enable_upgrades(upgrade):
 def add_upgrades_by_score(score):
     global upgrade
     
-    if score == 25:
+    if score == 5:
         upgrade = 1
     elif score == 50:
         upgrade = 2

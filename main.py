@@ -254,14 +254,17 @@ while running:
                 for event in pygame.event.get():  
                     if event.type == pygame.KEYDOWN:
                         quit(0)
-        
+        print(player_pos)
         # Cow kills, but it increases enemy spawn rate by 2 times !!!
         if isCollision(player_pos, enemyPos[e], 40):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
+            horizontal_motion[e] = random.randint(1,5) + random.random()*score/100
+            vertical_motion[e] = .75
+            enemyImg[e] = pygame.image.load('monster1.png')
             score += 1
-            rand = random.randint(1,500)
             
+            rand = random.randint(1,500)
             if rand <= 100: # 20%
                 createEnemy(1)
             elif rand <= 140: # 8%

@@ -146,7 +146,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,130))
         render = smallFont.render("Next upgrade at score 200", True, (0,0,0))
         screen.blit(render, (10,150))
-        milkSpeed = 30
+        milkSpeed = 40
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg,(40,40))
 

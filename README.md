@@ -4,15 +4,15 @@ A game where you play as a cow, and prevent monsters from getting to the barn. I
 ## The game
 - Cow has to kill the monsters before it gets to the farmhouse
 - The cow can either shoot or headbutt to kill the monsters
-- The headbutt is a more superior way to kill (as you will realise as you play the game), but will increase the enemy spawn rate by 2 times.
+- The headbutt is a more effective way to kill (compared to early game bullets), but will increase the enemy spawn rate by 2 times.
 
 ### Monsters
 There are three types of monsters:
 1. Red Monster: They are slow in their horizontal and vertical motions. They are very common.
    
-2. Pink Monster: They are very fast in their horizontal motion, but slow in the vertical one. Their initial spawn is rare.
+2. Pink Monster: They are very fast in their horizontal motion.
 
-3. White Monster: They are fast in both vertical and horizontal motions. They are extremely rare. 
+3. White Monster: They are fast in both vertical and horizontal motions. They are  rare. 
 
 ## Challenge
 Try to get to score: 300
@@ -21,12 +21,6 @@ Try to get to score: 300
 Just download the repository, and run the code using python3. You must have pygame library installed. It can be installed using ```pip install pygame```.
 
 # Future plans
-
-### Game Based
-- Cow will be able to jump to kill the enemy
-- The cow will get boost from random grass appearences, which will lead to various things
-- The cow will get update as the score gets higher, to control the massive enemy waves
-  
 ### AI Based
 - Automate the game with
     - Deep Reinforcement Learning

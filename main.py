@@ -111,9 +111,9 @@ def enable_upgrades(upgrade):
 
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 5:
-        upgrade = 2
-    elif score == 10:
+    if score == 20:
+        upgrade = 1
+    elif score == 50:
         upgrade = 2
     elif score == 150:
         upgrade = 3
@@ -147,7 +147,7 @@ while running:
                 go_left = False
                 
             if event.key == pygame.K_SPACE:
-                if not fire:
+                if not fire and not on_air:
                     milkPos[0] = player_pos[0]
                     shoot_milk(milkPos)
             
@@ -258,7 +258,7 @@ while running:
     player(player_pos[0], player_pos[1])
 
     # can shoot milk, only when on ground
-    if fire and not on_air:
+    if fire :
         screen.blit(milkImg, milkPos)
         if milkPos[1] == player_pos[1]:
             milkPos[0] = player_pos[0]

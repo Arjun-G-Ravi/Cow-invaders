@@ -17,7 +17,7 @@ score = 0
 font = pygame.font.Font('freesansbold.ttf', 40)
 
 def show_score():
-    render = font.render("Score: "+str(score), True, (255,255,255))
+    render = font.render("Score: "+ str(score), True, (255,255,255))
     screen.blit(render, (10,10))
 
 # Cow
@@ -25,6 +25,7 @@ playerImg = pygame.image.load('./cow.png')
 player_pos = [400,500]
 go_left = False
 go_right = False
+cow_speed = 6
 
 def player(x,y):
     screen.blit(playerImg, player_pos)
@@ -80,11 +81,56 @@ def isCollision(pos1, pos2, distance=27):
         return True
     return False
 
+# upgrades
+upgrade = 0
+
+def enable_upgrades(upgrade):
+    if upgrade == 1:
+        # Cow speed up
+        global cow_speed
+        cow_speed = 10
+        pass
+    
+    elif upgrade == 2:
+        # cow jump
+        pass
+    
+    elif upgrade == 3:
+        # Faster bullet
+        pass
+        
+    elif upgrade == 4:
+        # pass through bullet
+        pass
+        
+    elif upgrade == 5:
+        # Thriple bullet
+        pass
+    else:
+        pass
+
+def add_upgrades_by_score(score):
+    global upgrade
+    if score == 10:
+        upgrade = 1
+    elif score == 100:
+        upgrade = 2
+    elif score == 150:
+        upgrade = 3
+    elif score == 200:
+        upgrade = 4
+    elif score == 250:
+        upgrade = 5
+    else:
+        pass
+
 # main loop
 while running:
 
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
+    add_upgrades_by_score(score)
+    enable_upgrades(upgrade)
  
     for event in pygame.event.get(): 
         # print(event)               
@@ -115,11 +161,11 @@ while running:
     
     if go_left:
         if player_pos[0] > 20:
-            player_pos[0] -= 10
+            player_pos[0] -= cow_speed
     
     if go_right:
         if player_pos[0] < 720:
-            player_pos[0] += 10
+            player_pos[0] += cow_speed
     
     # For each enemy in list
     for e in range(num_enemy):

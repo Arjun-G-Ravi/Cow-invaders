@@ -23,6 +23,7 @@ Just download the repository, and run the code using python3. You must have pyga
 # Future plans
 ## Game
 - Add some thing to switch between weapons
+- Make a high score counter and save it in a file
   
 ### AI Based
 - Automate the game with
@@ -33,11 +34,11 @@ Just download the repository, and run the code using python3. You must have pyga
 and compare the results.
 
 ## Gameplay
-![Alt text](<Screenshot from 2023-12-10 08-10-27.png>)
-
 ![Alt text](<Screenshot from 2023-12-10 08-21-37.png>)
 
-![Alt text](<Screenshot from 2023-12-10 08-22-00.png>)
+![Alt text](<Screenshot from 2023-12-10 08-10-27.png>)
+
+![Alt text](<Screenshot from 2023-12-10 10-58-52-1.png>)
 
 # Citations
 - The image credits go to <a href="https://www.flaticon.com" title="flaticon">www.flaticon.com</a>

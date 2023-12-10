@@ -71,8 +71,12 @@ milkSpeed = 20
 def shoot_milk(milkPos):
     global fire
     fire = True
-    milk = pygame.mixer.Sound('laser.wav')
-    milk.play()
+    if upgrade == 3:
+        milk = pygame.mixer.Sound('gun.mp3')
+        milk.play()
+    else:
+        milk = pygame.mixer.Sound('laser.wav')
+        milk.play()
     
 
 # Collision detection

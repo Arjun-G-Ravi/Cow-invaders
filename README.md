@@ -21,6 +21,9 @@ Try to get to score: 300
 Just download the repository, and run the code using python3. You must have pygame library installed. It can be installed using ```pip install pygame```.
 
 # Future plans
+## Game
+- Add some thing to switch between weapons
+  
 ### AI Based
 - Automate the game with
     - Deep Reinforcement Learning

@@ -7,13 +7,23 @@ This is my attempt to create space invaders with pygame, except it is Cow invade
 - The headbutt is a more superior way to kill (as you will realise as you play the game), but will increase the enemy spawn rate by 2 times.
 
 ## Challenge
-Try to get to 300
+Try to get to score: 300
 
 # Future plans
+
+### Game Based
 - Cow will be able to jump to kill the enemy
 - The cow will get boost from random grass appearences, which will lead to various things
 - The cow will get update as the score gets higher, to control the massive enemy waves
   
+### AI Based
+- Automate the game with
+    - Deep Reinforcement Learning
+    - Proximal Policy Approximation
+    - Genetic Algorithm
+    - Some basic/ normal decision based algorithm (maybe)
+and compare the results.
+
 # Citations
 - The image credits go to <a href="https://www.flaticon.com" title="flaticon">www.flaticon.com</a>
 - The image credits go to https://www.freepik.com/

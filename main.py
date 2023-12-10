@@ -107,32 +107,31 @@ def enable_upgrades(upgrade):
         milkSpeed = 35
         render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        
-    if upgrade >= 4:
-        # pass through bullet
-        render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
-        screen.blit(render, (10,130))
         milkImg = pygame.image.load('milk2.png')
 
-    if upgrade >= 5:
+    if upgrade >= 4:
         # Thriple bullet
         render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
-        screen.blit(render, (10,150))
+        screen.blit(render, (10,130))
         milkImg = pygame.image.load('milk3.png')
-        milkImg = pygame.transform.scale(milkImg, (50,50))
+        milkImg = pygame.transform.scale(milkImg, (40,40))
 
-
+    if upgrade >= 5:
+        # pass through bullet
+        render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
+        screen.blit(render, (10,150))
+        milkImg = pygame.transform.scale(milkImg, (70,70))
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 3:
+    if score == 10:
         upgrade = 1
-    elif score == 5:
-        upgrade = 2
-    elif score == 7:
-        upgrade = 3
-    elif score == 10:
-        upgrade = 4
     elif score == 12:
+        upgrade = 2
+    elif score == 15:
+        upgrade = 3
+    elif score == 20:
+        upgrade = 4
+    elif score == 50:
         upgrade = 5
     else:
         pass
@@ -208,10 +207,10 @@ while running:
         enemyPos[e][1] += vertical_motion[e]
         
         # Enemy death
-        if isCollision(milkPos, enemyPos[e], distance=27 if upgrade<5 else 50):
+        if isCollision(milkPos, enemyPos[e], distance=27 if upgrade<4 else 50):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
-            if upgrade <= 3:
+            if upgrade <= 4:
                 fire = False
                 milkPos[1] = 500
             score += 1

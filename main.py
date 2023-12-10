@@ -221,9 +221,9 @@ while running:
             rand = random.randint(1,500)
             if rand <= 50: # 10%
                 createEnemy(1)
-            elif rand <= 55: # 1%
+            elif rand <= 70: # 4%
                 createEnemy(2)
-            elif rand <= 56: # 0.2%
+            elif rand <= 75: # 1%
                 createEnemy(3)
             else:
                 pass
@@ -264,9 +264,9 @@ while running:
             
             if rand <= 100: # 20%
                 createEnemy(1)
-            elif rand <= 110: # 2%
+            elif rand <= 140: # 8%
                 createEnemy(2)
-            elif rand <= 112: # 0.4%
+            elif rand <= 150: # 2%
                 createEnemy(3)
             else:
                 pass

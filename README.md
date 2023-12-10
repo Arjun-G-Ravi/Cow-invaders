@@ -38,6 +38,10 @@ and compare the results.
 ## Gameplay
 ![Alt text](<Screenshot from 2023-12-10 08-10-27.png>)
 
+![Alt text](<Screenshot from 2023-12-10 08-21-37.png>)
+
+![Alt text](<Screenshot from 2023-12-10 08-22-00.png>)
+
 # Citations
 - The image credits go to <a href="https://www.flaticon.com" title="flaticon">www.flaticon.com</a>
 - The image credits go to https://www.freepik.com/

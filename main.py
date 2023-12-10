@@ -3,17 +3,14 @@ import random
 import math
 import time
 
+# Initialisations
 pygame.init()
-
-# Screen
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Cow invaders")
 running = True
-# pygame.display.set_icon(pygame.image.load('10_Pygame learn/01_Space Invaders /spaceship.png')) # wont wprk in ubuntu
-
-# bgm
 pygame.mixer.music.load('bgm.mp3')
 pygame.mixer.music.play(-1)
+
 # Score
 score = 0
 font = pygame.font.Font('freesansbold.ttf', 40)
@@ -84,8 +81,7 @@ def isCollision(pos1, pos2, distance=27):
 
 # main loop
 while running:
-    
-    # fill screen with grass image
+
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
  
@@ -136,6 +132,7 @@ while running:
         enemyPos[e][0] += horizontal_motion[e]
         enemyPos[e][1] += vertical_motion[e]
         
+        # Enemy death
         if isCollision(milkPos, enemyPos[e]):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
@@ -154,6 +151,7 @@ while running:
             milk = pygame.mixer.Sound('grunt.mp3')
             milk.play()
 
+        # Enemy wins
         if enemyPos[e][1] > 600:
             milk = pygame.mixer.Sound('evil_laugh.mp3')
             milk.play()
@@ -174,8 +172,9 @@ while running:
                 for event in pygame.event.get():  
                     if event.type == pygame.KEYDOWN:
                         quit(0)
-
-        if isCollision(player_pos, enemyPos[e], 40): # Cow kills, but it increases enemy spawn rate by 2 times !!!
+        
+        # Cow kills, but it increases enemy spawn rate by 2 times !!!
+        if isCollision(player_pos, enemyPos[e], 40):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
             score += 1
@@ -194,7 +193,6 @@ while running:
             milk = pygame.mixer.Sound('moo.wav')
             milk.play()
                          
-    # place player(cow) at player_pos
     player(player_pos[0], player_pos[1])
 
     # fire milk
@@ -207,8 +205,5 @@ while running:
             fire = False
             milkPos[1] = 500
 
-    # This is where the screen gets updated with the above changes
     pygame.display.update()
-
-    # A clock adjusts frame rate
     pygame.time.Clock().tick(60)

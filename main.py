@@ -54,9 +54,9 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global horizontal_motion
     global num_enemy
     num_enemy += 1
-    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), 1],
+    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), .75],
                     2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15), .5],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(1,5), 2] }
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,7), 2] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]))
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])

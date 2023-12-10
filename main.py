@@ -126,15 +126,15 @@ def enable_upgrades(upgrade):
         
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 10:
+    if score == 20:
         upgrade = 1
-    elif score == 12:
+    elif score == 40:
         upgrade = 2
-    elif score == 15:
+    elif score == 70:
         upgrade = 3
-    elif score == 20:
+    elif score == 150:
         upgrade = 4
-    elif score == 50:
+    elif score == 200:
         upgrade = 5
     else:
         pass

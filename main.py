@@ -54,7 +54,7 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global horizontal_motion
     global num_enemy
     num_enemy += 1
-    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), .75],
+    monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), .75+random.random()*score/500],
                     2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15)+ score/100, 1],
                     3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(10,15)+ score/100, 2+random.random()*score/200] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]))
@@ -115,22 +115,22 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,130))
         milkSpeed = 30
         milkImg = pygame.image.load('milk3.png')
-        milkImg = pygame.transform.scale(milkImg, (40,40))
+        milkImg = pygame.transform.scale(milkImg,(40,40))
 
     if upgrade >= 5:
         # pass through bullet
         milkSpeed = 20
         render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
-        milkImg = pygame.transform.scale(milkImg, (70,70))
+        milkImg = pygame.transform.scale(milkImg,(70,70))
         
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 20:
+    if score == 25:
         upgrade = 1
-    elif score == 40:
+    elif score == 50:
         upgrade = 2
-    elif score == 70:
+    elif score == 100:
         upgrade = 3
     elif score == 150:
         upgrade = 4
@@ -250,7 +250,7 @@ while running:
                 screen.blit(finalScore, (150,100))
                 screen.blit(press, (240,350))
                 pygame.display.update() 
-                time.sleep(1)
+                time.sleep(2)
                 for event in pygame.event.get():  
                     if event.type == pygame.KEYDOWN:
                         quit(0)

@@ -90,30 +90,32 @@ def enable_upgrades(upgrade):
         # Cow speed up
         global cow_speed
         cow_speed = 10
-        render = smallFont.render("Upgrade Unlocked: Faster Cow", True, (255,255,255))
-        screen.blit(render, (10,50))
+        render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
+        screen.blit(render1, (10,50))
+        render = smallFont.render("    - Faster Cow", True, (255,255,255))
+        screen.blit(render, (10,70))
     
     if upgrade >= 2:
         # cow jump
-        render = smallFont.render("Upgrade Unlocked: Cow jump", True, (255,255,255))
-        screen.blit(render, (10,70))
+        render = smallFont.render("    - Cow jump", True, (255,255,255))
+        screen.blit(render, (10,90))
     
     if upgrade >= 3:
         # Faster bullet
         global milkSpeed 
         milkSpeed = 40
-        render = smallFont.render("Upgrade Unlocked: Faster Bullet", True, (255,255,255))
-        screen.blit(render, (10,90))
+        render = smallFont.render("    - Faster Bullet", True, (255,255,255))
+        screen.blit(render, (10,110))
         
     if upgrade >= 4:
         # pass through bullet
-        render = smallFont.render("Upgrade Unlocked: Sniper Bullet", True, (255,255,255))
-        screen.blit(render, (10,90))
+        render = smallFont.render("    - Pass through Bullet", True, (255,255,255))
+        screen.blit(render, (10,130))
         
     if upgrade >= 5:
         # Thriple bullet
-        render = smallFont.render("Upgrade Unlocked: Thriple Bullet", True, (255,255,255))
-        screen.blit(render, (10,90))
+        render = smallFont.render("    - Thriple Bullet", True, (255,255,255))
+        screen.blit(render, (10,150))
 
 def add_upgrades_by_score(score):
     global upgrade
@@ -204,8 +206,9 @@ while running:
         if isCollision(milkPos, enemyPos[e]):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
-            fire = False
-            milkPos[1] = 500
+            if upgrade <= 3:
+                fire = False
+                milkPos[1] = 500
             score += 1
             rand = random.randint(1,500)
             if rand <= 50: # 10%

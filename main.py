@@ -213,6 +213,7 @@ while running:
         if isCollision(milkPos, enemyPos[e], distance=27 if upgrade<4 else 50):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
+            # pygame.display.update()
             if upgrade <= 4:
                 fire = False
                 milkPos[1] = 500
@@ -226,6 +227,8 @@ while running:
                 createEnemy(3)
             else:
                 pass
+            horizontal_motion[e] = random.randint(1,5)
+            vertical_motion[e] = .75
             milk = pygame.mixer.Sound('grunt.mp3')
             milk.play()
 

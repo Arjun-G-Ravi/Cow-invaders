@@ -113,14 +113,17 @@ def enable_upgrades(upgrade):
         # Thriple bullet
         render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
+        milkSpeed = 20
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg, (40,40))
 
     if upgrade >= 5:
         # pass through bullet
+        
         render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
         milkImg = pygame.transform.scale(milkImg, (70,70))
+        
 def add_upgrades_by_score(score):
     global upgrade
     if score == 10:

@@ -63,7 +63,7 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     vertical_motion.append(monster_type[ch][3])
     
 # Milk
-milkImg = pygame.image.load('milk-bottle.png')
+milkImg = pygame.image.load('milk1.png')
 milkPos = [480,500]
 fire = False
 milkSpeed = 20
@@ -86,6 +86,7 @@ def isCollision(pos1, pos2, distance=27):
 upgrade = 0
 
 def enable_upgrades(upgrade):
+    global milkImg
     if upgrade >= 1:
         # Cow speed up
         global cow_speed
@@ -103,19 +104,23 @@ def enable_upgrades(upgrade):
     if upgrade >= 3:
         # Faster bullet
         global milkSpeed 
-        milkSpeed = 40
-        render = smallFont.render("    - Faster Bullet", True, (255,255,255))
+        milkSpeed = 35
+        render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         
     if upgrade >= 4:
         # pass through bullet
-        render = smallFont.render("    - Pass through Bullet", True, (255,255,255))
+        render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        
+        milkImg = pygame.image.load('milk2.png')
+
     if upgrade >= 5:
         # Thriple bullet
-        render = smallFont.render("    - Thriple Bullet", True, (255,255,255))
+        render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
+        milkImg = pygame.image.load('milk3.png')
+        milkImg = pygame.transform.scale(milkImg, (50,50))
+
 
 def add_upgrades_by_score(score):
     global upgrade
@@ -203,7 +208,7 @@ while running:
         enemyPos[e][1] += vertical_motion[e]
         
         # Enemy death
-        if isCollision(milkPos, enemyPos[e]):
+        if isCollision(milkPos, enemyPos[e], distance=27 if upgrade<5 else 50):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
             enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
             if upgrade <= 3:

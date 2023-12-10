@@ -55,8 +55,8 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global num_enemy
     num_enemy += 1
     monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), .75],
-                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15), 1],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(10,15), 2] }
+                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15)+ score/100, 1],
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(10,15)+ score/100, 2+random.random()*score/200] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]))
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
@@ -113,13 +113,13 @@ def enable_upgrades(upgrade):
         # Thriple bullet
         render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        milkSpeed = 20
+        milkSpeed = 30
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg, (40,40))
 
     if upgrade >= 5:
         # pass through bullet
-        
+        milkSpeed = 20
         render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
         milkImg = pygame.transform.scale(milkImg, (70,70))
@@ -227,7 +227,7 @@ while running:
                 createEnemy(3)
             else:
                 pass
-            horizontal_motion[e] = random.randint(1,5)
+            horizontal_motion[e] = random.randint(1,5) + random.random()*score/100
             vertical_motion[e] = .75
             enemyImg[e] = pygame.image.load('monster1.png')
             milk = pygame.mixer.Sound('grunt.mp3')

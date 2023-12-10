@@ -9,6 +9,9 @@ A game where you play as a cow, and prevent monsters from getting to the barn. I
 ## Challenge
 Try to get to score: 300
 
+## To play
+Just download the repository, and run the code using python3. You must have pygame library installed. It can be installed using ```pip install pygame```.
+
 # Future plans
 
 ### Game Based
@@ -23,6 +26,9 @@ Try to get to score: 300
     - Genetic Algorithm
     - Some basic/ normal decision based algorithm (maybe)
 and compare the results.
+
+## Gameplay
+![Alt text](<Screenshot from 2023-12-10 08-10-27.png>)
 
 # Citations
 - The image credits go to <a href="https://www.flaticon.com" title="flaticon">www.flaticon.com</a>

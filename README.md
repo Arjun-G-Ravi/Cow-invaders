@@ -1,5 +1,5 @@
 # COW INVADERS
-This is my attempt to create space invaders with pygame, except it is Cow invaders
+A game where you play as a cow, and prevent monsters from getting to the barn. It is a modern recreation of atari's classic space invaders.
 
 ## The game
 - Cow has to kill the monsters before it gets to the farmhouse

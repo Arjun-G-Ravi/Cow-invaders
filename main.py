@@ -160,13 +160,14 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,130))
         render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
-        render = smallFont.render("Next upgrade at score 400", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 500", True, (0,0,0))
         screen.blit(render, (10,170))
-        milkSpeed = 20
+        milkSpeed = 20 
+        milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg,(70,70))
         
     if upgrade == 6:
-        # pass through bullet
+        # Super speed
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
@@ -181,30 +182,29 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,150))
         render = smallFont.render("    - Ultra cow", True, (255,255,255))
         screen.blit(render, (10,170))
-        milkSpeed = 25
+        milkSpeed = 30
         cow_speed = 30
-        milkImg = pygame.transform.scale(milkImg,(70,70))
         
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 5:
+    
+    if score == 25:
         upgrade = 1
-    elif score == 10:
+    elif score == 50:
         upgrade = 2
-    elif score == 15:
+    elif score == 100:
         upgrade = 3
-    elif score == 20:
+    elif score == 150:
         upgrade = 4
-    elif score == 25:
+    elif score == 200:
         upgrade = 5
-    elif score >= 35:
+    elif score >= 500:
         upgrade = 6
     else:
         pass
 
 # main loop
 while running:
-
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
     add_upgrades_by_score(score)

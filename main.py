@@ -15,6 +15,7 @@ pygame.mixer.music.play(-1)
 # Score
 score = 0
 font = pygame.font.Font('freesansbold.ttf', 40)
+smallFont = pygame.font.Font('freesansbold.ttf', 14)
 
 def show_score():
     render = font.render("Score: "+ str(score), True, (255,255,255))
@@ -82,44 +83,49 @@ def isCollision(pos1, pos2, distance=27):
     return False
 
 # upgrades
-upgrade = 2
+upgrade = 0
 
 def enable_upgrades(upgrade):
-    if upgrade == 1:
+    if upgrade >= 1:
         # Cow speed up
         global cow_speed
         cow_speed = 10
-        pass
+        render = smallFont.render("Upgrade Unlocked: Faster Cow", True, (255,255,255))
+        screen.blit(render, (10,50))
     
-    elif upgrade == 2:
+    if upgrade >= 2:
         # cow jump
-        pass
+        render = smallFont.render("Upgrade Unlocked: Cow jump", True, (255,255,255))
+        screen.blit(render, (10,70))
     
-    elif upgrade == 3:
+    if upgrade >= 3:
         # Faster bullet
-        pass
+        global milkSpeed 
+        milkSpeed = 40
+        render = smallFont.render("Upgrade Unlocked: Faster Bullet", True, (255,255,255))
+        screen.blit(render, (10,90))
         
-    elif upgrade == 4:
+    if upgrade >= 4:
         # pass through bullet
-        pass
+        render = smallFont.render("Upgrade Unlocked: Sniper Bullet", True, (255,255,255))
+        screen.blit(render, (10,90))
         
-    elif upgrade == 5:
+    if upgrade >= 5:
         # Thriple bullet
-        pass
-    else:
-        pass
+        render = smallFont.render("Upgrade Unlocked: Thriple Bullet", True, (255,255,255))
+        screen.blit(render, (10,90))
 
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 20:
+    if score == 3:
         upgrade = 1
-    elif score == 50:
+    elif score == 5:
         upgrade = 2
-    elif score == 150:
+    elif score == 7:
         upgrade = 3
-    elif score == 200:
+    elif score == 10:
         upgrade = 4
-    elif score == 250:
+    elif score == 12:
         upgrade = 5
     else:
         pass
@@ -258,7 +264,7 @@ while running:
     player(player_pos[0], player_pos[1])
 
     # can shoot milk, only when on ground
-    if fire :
+    if fire:
         screen.blit(milkImg, milkPos)
         if milkPos[1] == player_pos[1]:
             milkPos[0] = player_pos[0]

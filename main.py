@@ -55,8 +55,8 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global num_enemy
     num_enemy += 1
     monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 200)], random.randint(1,5), .75],
-                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15), .5],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,7), 2] }
+                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(5,15), 1],
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 50)], random.randint(10,15), 2] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]))
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
@@ -229,6 +229,7 @@ while running:
                 pass
             horizontal_motion[e] = random.randint(1,5)
             vertical_motion[e] = .75
+            enemyImg[e] = pygame.image.load('monster1.png')
             milk = pygame.mixer.Sound('grunt.mp3')
             milk.play()
 

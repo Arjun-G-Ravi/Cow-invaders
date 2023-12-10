@@ -25,8 +25,8 @@ playerImg = pygame.image.load('./cow.png')
 player_pos = [400,500]
 go_left = False
 go_right = False
-cow_speed = 6
-
+cow_speed = 5
+jump = False
 def player(x,y):
     screen.blit(playerImg, player_pos)
 
@@ -82,7 +82,7 @@ def isCollision(pos1, pos2, distance=27):
     return False
 
 # upgrades
-upgrade = 0
+upgrade = 2
 
 def enable_upgrades(upgrade):
     if upgrade == 1:
@@ -111,9 +111,9 @@ def enable_upgrades(upgrade):
 
 def add_upgrades_by_score(score):
     global upgrade
-    if score == 10:
-        upgrade = 1
-    elif score == 100:
+    if score == 5:
+        upgrade = 2
+    elif score == 10:
         upgrade = 2
     elif score == 150:
         upgrade = 3
@@ -151,12 +151,11 @@ while running:
                     milkPos[0] = player_pos[0]
                     shoot_milk(milkPos)
             
-            if event.key == pygame.K_ESCAPE:
-                print('cow')
-                pause = True
-                
-        if event.type == pygame.KEYUP:
-            go_left = False
+            if event.key == pygame.K_UP and upgrade >= 2 and on_air == False: 
+                jump = True
+
+        if event.type == pygame.KEYUP and not event.key == pygame.K_UP :
+            go_left = False 
             go_right = False
     
     if go_left:
@@ -166,7 +165,23 @@ while running:
     if go_right:
         if player_pos[0] < 720:
             player_pos[0] += cow_speed
+            
+    if player_pos[1] <= 500 and player_pos[1] > 400 and jump:
+        player_pos[1] -= 10
+        on_air = True
     
+    if player_pos[1] == 400:
+        on_air = True
+        jump = False
+        
+    if player_pos[1] >= 400 and player_pos[1] < 500 and not jump:
+            player_pos[1] += 10
+            jump = False
+            on_air = True
+    
+    if player_pos[1] == 500:
+        on_air = False
+            
     # For each enemy in list
     for e in range(num_enemy):
         enemy(enemyImg[e], enemyPos[e])
@@ -242,11 +257,12 @@ while running:
                          
     player(player_pos[0], player_pos[1])
 
-    # fire milk
-    if fire:
+    # can shoot milk, only when on ground
+    if fire and not on_air:
         screen.blit(milkImg, milkPos)
-        if milkPos[1] == 500:
+        if milkPos[1] == player_pos[1]:
             milkPos[0] = player_pos[0]
+            
         milkPos[1] -= milkSpeed
         if milkPos[1] <= 0:
             fire = False

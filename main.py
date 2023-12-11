@@ -88,7 +88,11 @@ def isCollision(pos1, pos2, distance=27):
 
 # upgrades
 upgrade = 0
-
+def add_high_score():
+    with open('high_score.txt', 'r') as f:
+        # global high_score
+        high_score = f.read()
+    return int(high_score)
 def enable_upgrades(upgrade):
     global milkImg
     if upgrade == 0:
@@ -211,6 +215,10 @@ def add_upgrades_by_score(score):
 while running:
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
+    h_score = add_high_score()
+    hs_font = pygame.font.Font('freesansbold.ttf', 20)
+    hs = hs_font.render(f"High Score:{h_score}", True, (255,255,255))
+    screen.blit(hs, (650,30))
     add_upgrades_by_score(score)
     enable_upgrades(upgrade)
  
@@ -316,7 +324,11 @@ while running:
                 screen.blit(finalScore, (150,100))
                 screen.blit(press, (240,350))
                 pygame.display.update() 
-                time.sleep(2)
+                time.sleep(3)
+                if score > h_score:
+                    with open('high_score.txt', 'w') as f:
+                        f.write(str(score))
+                        print("NEW HIGH SCORE")
                 for event in pygame.event.get():  
                     if event.type == pygame.KEYDOWN:
                         quit(0)

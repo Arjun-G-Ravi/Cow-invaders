@@ -90,6 +90,7 @@ def isCollision(pos1, pos2, distance=27):
 # upgrades
 upgrade = 0
 
+# high score
 def add_high_score():
     with open('h_score.pkl', 'rb') as file:    
         data = pickle.load(file)
@@ -221,7 +222,7 @@ while running:
     h_score = add_high_score()
     hs_font = pygame.font.Font('freesansbold.ttf', 20)
     hs = hs_font.render(f"High Score:{h_score}", True, (255,255,255))
-    screen.blit(hs, (650,30))
+    screen.blit(hs, (630,30))
     add_upgrades_by_score(score)
     enable_upgrades(upgrade)
  

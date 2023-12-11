@@ -71,7 +71,7 @@ milkSpeed = 20
 def shoot_milk(milkPos):
     global fire
     fire = True
-    if upgrade == 3:
+    if upgrade == 3 or upgrade == 4:
         milk = pygame.mixer.Sound('gun.mp3')
         milk.play()
     else:
@@ -162,11 +162,11 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,110))
         render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Ultra Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
         render = smallFont.render("Next upgrade at score 500", True, (0,0,0))
         screen.blit(render, (10,170))
-        milkSpeed = 15 
+        milkSpeed = 20
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg,(70,70))
         

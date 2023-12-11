@@ -3,6 +3,7 @@ import pygame
 import random
 import math
 import time
+import pickle
 
 # Initialisations
 pygame.init()
@@ -88,11 +89,12 @@ def isCollision(pos1, pos2, distance=27):
 
 # upgrades
 upgrade = 0
+
 def add_high_score():
-    with open('high_score.txt', 'r') as f:
-        # global high_score
-        high_score = f.read()
-    return int(high_score)
+    with open('h_score.pkl', 'rb') as file:    
+        data = pickle.load(file)
+    return int(data)
+
 def enable_upgrades(upgrade):
     global milkImg
     if upgrade == 0:
@@ -120,6 +122,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,90))
         render = smallFont.render("Next upgrade at score 75", True, (0,0,0))
         screen.blit(render, (10,110))
+        
     if upgrade == 3:
         # Faster bullet
         global milkSpeed 
@@ -137,7 +140,7 @@ def enable_upgrades(upgrade):
         milkImg = pygame.image.load('milk2.png')
 
     if upgrade == 4:
-        # Fast bullet
+        # Bigger bullet
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
@@ -325,13 +328,14 @@ while running:
                 screen.blit(press, (240,350))
                 pygame.display.update() 
                 time.sleep(3)
-                if score > h_score:
-                    with open('high_score.txt', 'w') as f:
-                        f.write(str(score))
+                if score > h_score:                      
+                    with open('h_score.pkl', 'wb') as file:
+                        pickle.dump(str(score), file)
                         print("NEW HIGH SCORE")
-                for event in pygame.event.get():  
-                    if event.type == pygame.KEYDOWN:
-                        quit(0)
+                while True:
+                    for event in pygame.event.get():  
+                        if event.type == pygame.KEYDOWN:
+                            quit(0)
         # Cow kills, but it increases enemy spawn rate by 2 times !!!
         if isCollision(player_pos, enemyPos[e], 40):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])

@@ -21,10 +21,6 @@ Try to get to score: 500
 Just download the repository, and run the code using python3. You must have pygame library installed. It can be installed using ```pip install pygame```.
 
 # Future plans
-## Game
-- Add some thing to switch between weapons
-- Make a high score counter and save it in a file
-  
 ### AI Based
 - Automate the game with
     - Deep Reinforcement Learning

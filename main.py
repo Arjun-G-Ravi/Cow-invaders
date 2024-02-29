@@ -27,7 +27,7 @@ playerImg = pygame.image.load('./cow.png')
 player_pos = [400,500]
 go_left = False
 go_right = False
-cow_speed = 5
+cow_speed = 7
 jump = False
 def player(x,y):
     screen.blit(playerImg, player_pos)
@@ -91,6 +91,7 @@ def isCollision(pos1, pos2, distance=27):
 upgrade = 0
 
 # high score
+
 def add_high_score():
     with open('h_score.pkl', 'rb') as file:    
         data = pickle.load(file)
@@ -105,7 +106,7 @@ def enable_upgrades(upgrade):
     if upgrade == 1:
         # Cow speed up
         global cow_speed
-        cow_speed = 10
+        cow_speed = 12
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
@@ -121,7 +122,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("Next upgrade at score 75", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 50", True, (0,0,0))
         screen.blit(render, (10,110))
         
     if upgrade == 3:
@@ -136,7 +137,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,90))
         render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        render = smallFont.render("Next upgrade at score 150", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 100", True, (0,0,0))
         screen.blit(render, (10,130))
         milkImg = pygame.image.load('milk2.png')
 
@@ -152,7 +153,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,110))
         render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        render = smallFont.render("Next upgrade at score 200", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 150", True, (0,0,0))
         screen.blit(render, (10,150))
         milkSpeed = 40
         milkImg = pygame.image.load('milk3.png')
@@ -172,7 +173,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,130))
         render = smallFont.render("    - Ultra Milk Bullet", True, (255,255,255))
         screen.blit(render, (10,150))
-        render = smallFont.render("Next upgrade at score 500", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 300", True, (0,0,0))
         screen.blit(render, (10,170))
         milkSpeed = 20
         milkImg = pygame.image.load('milk3.png')
@@ -195,7 +196,7 @@ def enable_upgrades(upgrade):
         render = smallFont.render("    - Ultra cow", True, (255,255,255))
         screen.blit(render, (10,170))
         milkSpeed = 30
-        cow_speed = 30
+        cow_speed = 20
         
 def add_upgrades_by_score(score):
     global upgrade
@@ -204,13 +205,13 @@ def add_upgrades_by_score(score):
         upgrade = 1
     elif score == 30:
         upgrade = 2
-    elif score == 75:
+    elif score == 50:
         upgrade = 3
-    elif score == 150:
+    elif score == 100:
         upgrade = 4
-    elif score == 200:
+    elif score == 150:
         upgrade = 5
-    elif score >= 500:
+    elif score >= 300:
         upgrade = 6
     else:
         pass

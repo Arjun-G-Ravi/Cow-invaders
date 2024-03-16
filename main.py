@@ -5,7 +5,7 @@ import math
 import time
 import pickle
 
-# Initialisations
+# Initializations
 pygame.init()
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Cow invaders")

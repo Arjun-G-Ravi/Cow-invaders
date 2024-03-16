@@ -23,12 +23,13 @@ def show_score():
     screen.blit(render, (10,10))
 
 # Cow
-playerImg = pygame.image.load('./cow.png')
+playerImg = pygame.image.load('./cow.png').convert_alpha()
 player_pos = [400,500]
 go_left = False
 go_right = False
 cow_speed = 7
 jump = False
+
 def player(x,y):
     screen.blit(playerImg, player_pos)
 
@@ -40,7 +41,7 @@ horizontal_motion = [random.randint(1,5) for i in range(num_enemy)]
 vertical_motion = [.25 for i in range(num_enemy)]
 
 for i in range(num_enemy):
-    enemyimg = pygame.image.load('monster1.png')
+    enemyimg = pygame.image.load('monster1.png').convert_alpha()
     enemypos = [random.randint(100, 700), random.randint(0, 200)]
     enemyImg.append(enemyimg)
     enemyPos.append(enemypos)
@@ -58,20 +59,19 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 100)], random.randint(1,5), 1+random.random()*score/250],
                     2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,20)+ score/100, 1],
                     3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,15)+ score/100, 2+score/200] }
-    enemyImg.append(pygame.image.load(monster_type[ch][0]))
+    enemyImg.append(pygame.image.load(monster_type[ch][0]).convert_alpha())
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
     vertical_motion.append(monster_type[ch][3]) 
     
 # Milk
-milkImg = pygame.image.load('milk1.png')
+milkImg = pygame.image.load('milk1.png').convert_alpha()
 milkPos = [480,500]
-fire = False
 milkSpeed = 20
+bullet_pool = []
+pool_size = 3
 
-def shoot_milk(milkPos):
-    global fire
-    fire = True
+def shoot_milk():
     if upgrade == 3 or upgrade == 4:
         milk = pygame.mixer.Sound('gun.mp3')
         milk.play()
@@ -241,9 +241,10 @@ while running:
                 go_left = False
                 
             if event.key == pygame.K_SPACE:
-                if not fire and not on_air:
+                if (len(bullet_pool)<pool_size) and not on_air:
                     milkPos[0] = player_pos[0]
-                    shoot_milk(milkPos)
+                    bullet_pool.append(milkPos.copy())
+                    shoot_milk()
             
             if event.key == pygame.K_UP and upgrade >= 2 and on_air == False: 
                 jump = True
@@ -289,28 +290,28 @@ while running:
         enemyPos[e][1] += vertical_motion[e]
         
         # Enemy death
-        if isCollision(milkPos, enemyPos[e], distance=27 if upgrade<4 else 50):
-            screen.blit(pygame.image.load('explode.png'), enemyPos[e])
-            enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
-            # pygame.display.update()
-            if upgrade <= 4:
-                fire = False
-                milkPos[1] = 500
-            score += 1
-            rand = random.randint(1,500)
-            if rand <= 50: # 10%
-                createEnemy(1)
-            elif rand <= 70: # 4%
-                createEnemy(2)
-            elif rand <= 75: # 1%
-                createEnemy(3)
-            else:
-                pass
-            horizontal_motion[e] = random.randint(1,5) + random.random()*score/100
-            vertical_motion[e] = .75
-            enemyImg[e] = pygame.image.load('monster1.png')
-            milk = pygame.mixer.Sound('grunt.mp3')
-            milk.play()
+        for milkpos in bullet_pool:
+            if isCollision(milkpos, enemyPos[e], distance=27 if upgrade<4 else 50):
+                screen.blit(pygame.image.load('explode.png'), enemyPos[e])
+                enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
+                # pygame.display.update()
+                if upgrade <= 4:
+                     bullet_pool.remove(milkpos)
+                score += 1
+                rand = random.randint(1,500)
+                if rand <= 50: # 10%
+                    createEnemy(1)
+                elif rand <= 70: # 4%
+                    createEnemy(2)
+                elif rand <= 75: # 1%
+                    createEnemy(3)
+                else:
+                    pass
+                horizontal_motion[e] = random.randint(1,5) + random.random()*score/100
+                vertical_motion[e] = .75
+                enemyImg[e] = pygame.image.load('monster1.png')
+                milk = pygame.mixer.Sound('grunt.mp3')
+                milk.play()
 
         # Enemy wins
         if enemyPos[e][1] > 600:
@@ -364,15 +365,14 @@ while running:
     player(player_pos[0], player_pos[1])
 
     # can shoot milk, only when on ground
-    if fire:
-        screen.blit(milkImg, milkPos)
-        if milkPos[1] == player_pos[1]:
-            milkPos[0] = player_pos[0]
-            
-        milkPos[1] -= milkSpeed
-        if milkPos[1] <= 0:
-            fire = False
-            milkPos[1] = 500
+    for milkpos in bullet_pool:
+        screen.blit(milkImg, milkpos)
+        if milkpos[1] == player_pos[1]:
+            milkpos[0] = player_pos[0]
+        
+        milkpos[1] -= milkSpeed
+        if milkpos[1] <= 0:
+            bullet_pool.remove(milkpos)
 
     pygame.display.update()
     pygame.time.Clock().tick(60)

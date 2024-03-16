@@ -12,10 +12,10 @@ There are three types of monsters:
    
 2. Pink Monster: They are very fast in their horizontal motion.
 
-3. White Monster: They are fast in both vertical and horizontal motions. They are  rare. 
+3. White Monster: They are fast in both vertical and horizontal motions. They are rare. 
 
 ## Challenge
-Try to get to score: 500
+Try to get to score: 1000
 
 ## To play
 Just download the repository, and run the code using python3. You must have pygame library installed. It can be installed using ```pip install pygame```.

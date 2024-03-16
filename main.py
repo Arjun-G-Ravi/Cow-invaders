@@ -59,18 +59,26 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global num_enemy
     num_enemy += 1
     monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 100)], random.randint(1,5), 1+score/250],
-                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], 10 + score/50, 2+score/250],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,25)+ score/200, upgrade+1] }
+                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], 10 + score/50, 1+score/200],
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(0,25), upgrade+1] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]).convert_alpha())
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
     vertical_motion.append(monster_type[ch][3]) 
 
-def generate_enemy():
+def spawn_enemy(s):
     rand = random.randint(1,100)
-    if rand <= 10: createEnemy(1)# 10%
-    elif rand <= 15: createEnemy(2)# 5%
-    elif rand <= 16: createEnemy(3)# 1%
+    if s == 'early_game':
+        if rand <= 40: createEnemy(1)# 30%
+        elif rand <= 42: createEnemy(2)# 2%
+        elif rand <= 43: createEnemy(3)# 1%
+    if s == 'middle_game':
+        if rand <= 20: createEnemy(1)# 20%
+        elif rand <= 30: createEnemy(2)# 10%
+        elif rand <= 35: createEnemy(3)# 5%
+    if s == 'late_game':
+        if rand <= 30: createEnemy(2)# 30%
+        elif rand <= 40: createEnemy(3)# 10%
 # Milk
 milkImg = pygame.image.load('milk1.png').convert_alpha()
 milkPos = [480,500]
@@ -135,15 +143,16 @@ def enable_upgrades(upgrade):
      
         
     if upgrade == 3:
-        if pool_size == 1: bullet_pool.append(milkPos.copy())
-        pool_size = 2 
+        # Multi bullet
+        if pool_size < 3: bullet_pool.append(milkPos.copy())
+        pool_size += 1
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        render = smallFont.render("    - Multi bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         render = smallFont.render("Next upgrade at score 100", True, (0,0,0))
         screen.blit(render, (10,130))
@@ -157,14 +166,14 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        render = smallFont.render("    - Multi bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         render = smallFont.render("    - Mega Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
         render = smallFont.render("Next upgrade at score 250", True, (0,0,0))
         screen.blit(render, (10,150))
         milkImg = pygame.image.load('milk1.png')
-        milkImg = pygame.transform.scale(milkImg,(60,60))
+        milkImg = pygame.transform.scale(milkImg,(40,40))
         
     if upgrade == 5:
         # Faster bullet
@@ -176,7 +185,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        render = smallFont.render("    - Multi bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         render = smallFont.render("    - Mega Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
@@ -194,7 +203,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        render = smallFont.render("    - Multi bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         render = smallFont.render("    - Ultra Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
@@ -212,7 +221,7 @@ def enable_upgrades(upgrade):
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        render = smallFont.render("    - Multi bullet", True, (255,255,255))
         screen.blit(render, (10,110))
         render = smallFont.render("    - Ultra Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
@@ -243,7 +252,6 @@ def add_upgrades_by_score(score):
 
 # main loop
 while running:
-    print(num_enemy)
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
     h_score = add_high_score()
@@ -342,15 +350,9 @@ while running:
                 if upgrade <= 5:
                      bullet_pool.remove(milkpos)
                 score += 1
-                rand = random.randint(1,500)
-                if rand <= 50: # 10%
-                    createEnemy(1)
-                elif rand <= 70: # 4%
-                    createEnemy(2)
-                elif rand <= 75: # 1%
-                    createEnemy(3)
-                else:
-                    pass
+                if score < 100: spawn_enemy('early_game')
+                elif score < 500: spawn_enemy('middle_game')
+                else: spawn_enemy('late_game')
                 horizontal_motion[e] = random.randint(1,5) + random.random()*score/100
                 vertical_motion[e] = .75
                 enemyImg[e] = pygame.image.load('monster1.png')
@@ -392,14 +394,7 @@ while running:
             vertical_motion[e] = .75
             enemyImg[e] = pygame.image.load('monster1.png')
             score += 1
-            
-            rand = random.randint(1,500)
-            if rand <= 100: # 20%
-                createEnemy(1)
-            elif rand <= 140: # 8%
-                createEnemy(2)
-            elif rand <= 150: # 2%
-                createEnemy(3)
+            spawn_enemy('late_game')
             milk = pygame.mixer.Sound('grunt.mp3')
             milk.play()
             milk = pygame.mixer.Sound('moo.wav')

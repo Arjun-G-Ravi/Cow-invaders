@@ -59,13 +59,18 @@ def createEnemy(ch): # img, pos, horiz_motion, vertical motion
     global num_enemy
     num_enemy += 1
     monster_type = {1:['monster1.png', [random.randint(100, 700), random.randint(0, 100)], random.randint(1,5), 1+score/250],
-                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,20)+ score/100, 2+score/400],
-                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,15)+ score/200, 2+score/200] }
+                    2:['monster2.png', [random.randint(100, 700), random.randint(0, 30)], 10 + score/50, 2+score/250],
+                    3:['monster3.png', [random.randint(100, 700), random.randint(0, 30)], random.randint(10,25)+ score/200, upgrade+1] }
     enemyImg.append(pygame.image.load(monster_type[ch][0]).convert_alpha())
     enemyPos.append(monster_type[ch][1])
     horizontal_motion.append(monster_type[ch][2])
     vertical_motion.append(monster_type[ch][3]) 
-    
+
+def generate_enemy():
+    rand = random.randint(1,100)
+    if rand <= 10: createEnemy(1)# 10%
+    elif rand <= 15: createEnemy(2)# 5%
+    elif rand <= 16: createEnemy(3)# 1%
 # Milk
 milkImg = pygame.image.load('milk1.png').convert_alpha()
 milkPos = [480,500]
@@ -74,9 +79,10 @@ bullet_pool = []
 pool_size = 1
 
 def shoot_milk():
-    if upgrade == 3 or upgrade == 4:
+    if upgrade == 5:
         milk = pygame.mixer.Sound('gun.mp3')
         milk.play()
+    
     else:
         milk = pygame.mixer.Sound('laser.wav')
         milk.play()
@@ -112,10 +118,9 @@ def enable_upgrades(upgrade):
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
-        render = smallFont.render("Next upgrade at score 30", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 20", True, (0,0,0))
         screen.blit(render, (10,90))
-        # if pool_size == 1: bullet_pool.append(milkPos.copy())
-        # pool_size = 2    
+ 
         
     if upgrade == 2:
         # cow jump
@@ -132,69 +137,69 @@ def enable_upgrades(upgrade):
     if upgrade == 3:
         if pool_size == 1: bullet_pool.append(milkPos.copy())
         pool_size = 2 
-        # render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
-        # screen.blit(render1, (10,50))
-        # render = smallFont.render("    - Faster Cow", True, (255,255,255))
-        # screen.blit(render, (10,70))
-        # render = smallFont.render("    - Cow jump", True, (255,255,255))
-        # screen.blit(render, (10,90))
-        # render = smallFont.render("    - Double bullet", True, (255,255,255))
-        # screen.blit(render, (10,90))
-        # render = smallFont.render("Next upgrade at score 150", True, (0,0,0))
-        # screen.blit(render, (10,110))
+        render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
+        screen.blit(render1, (10,50))
+        render = smallFont.render("    - Faster Cow", True, (255,255,255))
+        screen.blit(render, (10,70))
+        render = smallFont.render("    - Cow jump", True, (255,255,255))
+        screen.blit(render, (10,90))
+        render = smallFont.render("    - Double bullet", True, (255,255,255))
+        screen.blit(render, (10,110))
+        render = smallFont.render("Next upgrade at score 100", True, (0,0,0))
+        screen.blit(render, (10,130))
     
         
     if upgrade == 4:
         # Bigger bullet
-        # global milkSpeed 
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Double bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Mega Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        render = smallFont.render("Next upgrade at score 150", True, (0,0,0))
+        render = smallFont.render("Next upgrade at score 250", True, (0,0,0))
         screen.blit(render, (10,150))
-        # milkSpeed = 40
         milkImg = pygame.image.load('milk1.png')
-        milkImg = pygame.transform.scale(milkImg,(40,40))
+        milkImg = pygame.transform.scale(milkImg,(60,60))
         
     if upgrade == 5:
         # Faster bullet
         global milkSpeed 
-        milkSpeed = 40
+        milkSpeed = 40     
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
         screen.blit(render1, (10,50))
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Double bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        render = smallFont.render("Next upgrade at score 100", True, (0,0,0))
+        render = smallFont.render("    - Mega Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
+        render = smallFont.render("    - Sniper", True, (255,255,255))
+        screen.blit(render, (10,150))
+        render = smallFont.render("Next upgrade at score 500", True, (0,0,0))
+        screen.blit(render, (10,170))
         milkImg = pygame.image.load('milk2.png')
 
     if upgrade == 6:
         # pass through bullet
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
-        screen.blit(render1, (10,50))
+        screen.blit(render1, (10,50))        
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Double bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Ultra Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        render = smallFont.render("    - Ultra Milk Bullet", True, (255,255,255))
+        render = smallFont.render("Next upgrade at score 700", True, (0,0,0))
         screen.blit(render, (10,150))
-        render = smallFont.render("Next upgrade at score 300", True, (0,0,0))
-        screen.blit(render, (10,170))
         milkSpeed = 20
         milkImg = pygame.image.load('milk3.png')
         milkImg = pygame.transform.scale(milkImg,(70,70))
@@ -202,44 +207,43 @@ def enable_upgrades(upgrade):
     if upgrade == 7:
         # Super speed and Jump
         render1 = smallFont.render("Upgrades Unlocked:", True, (255,255,255))
-        screen.blit(render1, (10,50))
+        screen.blit(render1, (10,50))        
         render = smallFont.render("    - Faster Cow", True, (255,255,255))
         screen.blit(render, (10,70))
         render = smallFont.render("    - Cow jump", True, (255,255,255))
         screen.blit(render, (10,90))
-        render = smallFont.render("    - Faster Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Double bullet", True, (255,255,255))
         screen.blit(render, (10,110))
-        render = smallFont.render("    - Mega Milk Bullet", True, (255,255,255))
+        render = smallFont.render("    - Ultra Bullet", True, (255,255,255))
         screen.blit(render, (10,130))
-        render = smallFont.render("    - Pass through Milk Bullet", True, (255,255,255))
-        screen.blit(render, (10,150))
         render = smallFont.render("    - Ultra cow", True, (255,255,255))
-        screen.blit(render, (10,170))
+        screen.blit(render, (10,150))
         milkSpeed = 25
         cow_speed = 20
         
 def add_upgrades_by_score(score):
     global upgrade
     
-    # if   score == 10: upgrade = 1 # Faster cow
-    # elif score == 20: upgrade = 2 # Cow jump
-    # elif score == 50: upgrade = 3 # Double bullet
-    # elif score == 100: upgrade = 4 # Larger bullet
-    # elif score == 250: upgrade = 5 # Faster bullet
-    # elif score == 500: upgrade = 6 # Pass through bullet
-    # elif score == 700: upgrade = 7 # Super speed and Super jump
+    if   score == 10: upgrade = 1 # Faster cow
+    elif score == 20: upgrade = 2 # Cow jump
+    elif score == 50: upgrade = 3 # Double bullet
+    elif score == 100: upgrade = 4 # Larger bullet
+    elif score == 250: upgrade = 5 # Faster bullet
+    elif score == 500: upgrade = 6 # Pass through bullet
+    elif score == 700: upgrade = 7 # Super speed and Super jump
 
     # testing
-    if   score == 1: upgrade = 1 # Faster cow
-    elif score == 3: upgrade = 2 # Cow jump
-    elif score == 10: upgrade = 3 # Double bullet
-    elif score == 20: upgrade = 4 # Larger bullet
-    elif score == 30: upgrade = 5 # Faster bullet
-    elif score == 40: upgrade = 6 # Pass through bullet
-    elif score == 50: upgrade = 7 # Super speed and Super jump -> Super Cow
+    # if   score == 1: upgrade = 1 # Faster cow
+    # elif score == 3: upgrade = 2 # Cow jump
+    # elif score == 10: upgrade = 3 # Double bullet
+    # elif score == 20: upgrade = 4 # Larger bullet
+    # elif score == 30: upgrade = 5 # Faster bullet
+    # elif score == 40: upgrade = 6 # Pass through bullet
+    # elif score == 50: upgrade = 7 # Super speed and Super jump -> Super Cow
 
 # main loop
 while running:
+    print(num_enemy)
     screen.blit(pygame.image.load('grass_background.png'),(0,0))
     show_score()
     h_score = add_high_score()
@@ -268,10 +272,10 @@ while running:
                     bullet_pool.append(milkPos.copy())
                     shoot_milk()
             
-            if event.key == pygame.K_UP and upgrade >= 2 and upgrade < 5 and on_air == False: 
+            if event.key == pygame.K_UP and upgrade >= 2 and upgrade < 7 and on_air == False: 
                 jump = True
                 
-            if event.key == pygame.K_UP and upgrade >= 5 and on_air == False: 
+            if event.key == pygame.K_UP and upgrade >= 7 and on_air == False: 
                 hyper_jump = True    
             
 
@@ -335,7 +339,7 @@ while running:
                 screen.blit(pygame.image.load('explode.png'), enemyPos[e])
                 enemyPos[e] = [random.randint(100, 700), random.randint(0, 100)]
                 # pygame.display.update()
-                if upgrade <= 4:
+                if upgrade <= 5:
                      bullet_pool.remove(milkpos)
                 score += 1
                 rand = random.randint(1,500)
@@ -379,6 +383,7 @@ while running:
                     for event in pygame.event.get():  
                         if event.type == pygame.KEYDOWN:
                             quit(0)
+                            
         # Cow kills, but it increases enemy spawn rate by 2 times !!!
         if isCollision(player_pos, enemyPos[e], 40):
             screen.blit(pygame.image.load('explode.png'), enemyPos[e])
@@ -395,8 +400,6 @@ while running:
                 createEnemy(2)
             elif rand <= 150: # 2%
                 createEnemy(3)
-            else:
-                pass
             milk = pygame.mixer.Sound('grunt.mp3')
             milk.play()
             milk = pygame.mixer.Sound('moo.wav')
